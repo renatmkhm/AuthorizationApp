@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 using AuthorizationApp.Models;
 
 namespace AuthorizationApp.Data
@@ -9,7 +11,8 @@ namespace AuthorizationApp.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AuthorizationAppDb;Trusted_Connection=True;");
+            var dbPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\AuthorizationAppDb.sqlite"));
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
     }
 }
